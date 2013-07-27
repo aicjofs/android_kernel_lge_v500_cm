@@ -315,7 +315,17 @@ int msm_cpufreq_set_freq_limits(uint32_t cpu, uint32_t min, uint32_t max)
 }
 EXPORT_SYMBOL(msm_cpufreq_set_freq_limits);
 
-static int __cpuinit msm_cpufreq_init(struct cpufreq_policy *policy)
+unsigned int get_cur_max(unsigned int cpu)
+{
+        struct cpu_freq *limit = &per_cpu(cpu_freq_info, cpu);
+  
+        if (unlikely(!limit->limits_init))
+                msm_cpufreq_limits_init();
+    
+        return limit->allowed_max;
+}
+
+static int msm_cpufreq_init(struct cpufreq_policy *policy)
 {
 	int cur_freq;
 	int index;
@@ -379,7 +389,7 @@ static int __cpuinit msm_cpufreq_init(struct cpufreq_policy *policy)
 	return 0;
 }
 
-static int __cpuinit msm_cpufreq_cpu_callback(struct notifier_block *nfb,
+static int msm_cpufreq_cpu_callback(struct notifier_block *nfb,
 		unsigned long action, void *hcpu)
 {
 	unsigned int cpu = (unsigned long)hcpu;
