@@ -617,4 +617,3 @@ endif
 source "drivers/input/keyboard/cypress_touchkey/Kconfig"
 source "drivers/input/keyboard/cypress_touchkey_h/Kconfig"
 source "drivers/input/keyboard/cypress_touchkey_ks01/Kconfig"
-source "drivers/input/keyboard/melfas_touchkey/Kconfig"
