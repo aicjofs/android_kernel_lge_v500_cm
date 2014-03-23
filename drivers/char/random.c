@@ -805,7 +805,11 @@ static ssize_t extract_entropy(struct entropy_store *r, void *buf,
  */
 static void xfer_secondary_pool(struct entropy_store *r, size_t nbytes)
 {
-	__u32	tmp[OUTPUT_POOL_WORDS];
+	union {
+			__u32	tmp[OUTPUT_POOL_WORDS];
+			long	hwrand[4];
+	} u;
+	int	i;
 
 	if (r->pull && r->entropy_count < nbytes * 8 &&
 	    r->entropy_count < r->poolinfo->POOLBITS) {
@@ -824,7 +828,7 @@ static void xfer_secondary_pool(struct entropy_store *r, size_t nbytes)
 
 		bytes = extract_entropy(r->pull, u.tmp, bytes,
 					random_read_wakeup_thresh / 8, rsvd);
-		mix_pool_bytes(r, tmp, bytes, NULL);
+		mix_pool_bytes(r, u.tmp, bytes, NULL);
 		credit_entropy_bits(r, bytes*8);
 	}
 	kmemcheck_mark_initialized(&u.hwrand, sizeof(u.hwrand));
