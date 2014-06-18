@@ -994,14 +994,6 @@ static void do_dbs_timer(struct work_struct *work)
 			dbs_info->freq_lo, CPUFREQ_RELATION_H);
 		delay = dbs_info->freq_lo_jiffies;
 	}
-	if (dbs_info->cur_policy != NULL)
-		trace_cpufreq_sampling_event(cpu,
-			dbs_info->cur_policy->cur,
-			dbs_info->prev_load);
-	else
-		trace_cpufreq_sampling_event(cpu,
-			0, dbs_info->prev_load);
-
 	queue_delayed_work_on(cpu, dbs_wq, &dbs_info->work, delay);
 	mutex_unlock(&dbs_info->timer_mutex);
 }
@@ -1188,8 +1180,6 @@ static int dbs_sync_thread(void *data)
 			queue_delayed_work_on(cpu, dbs_wq,
 					      &this_dbs_info->work, delay);
 			mutex_unlock(&this_dbs_info->timer_mutex);
-			trace_cpufreq_freq_synced(cpu,
-				policy->cur, this_dbs_info->prev_load);
 		}
 
 bail_incorrect_governor:
