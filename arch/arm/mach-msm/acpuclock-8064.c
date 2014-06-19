@@ -838,7 +838,7 @@ static struct acpu_level tbl_PVS4_1700MHz[] __initdata = {
 	{ 1, {  1728000, HFPLL, 1, 0x40 }, L2(14), 1100000 },
 #ifdef CONFIG_CPU_OVERCLOCK
 	{ 1, {  1782000, HFPLL, 1, 0x42 }, L2(14), 1100000 },
-#endi
+#endif
 	{ 0, { 0 } }
 };
 
