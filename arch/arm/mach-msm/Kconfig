@@ -1651,7 +1651,7 @@ config MSM_CPU_VOLTAGE_CONTROL
 	help
 	  This enables userspace CPU Voltage Control
 
-config LOW_CPUCLOCKS
+config LOW_CPU_CLOCKS
 	bool "Enable ultra low CPU clocks"
 	default n
 	help
