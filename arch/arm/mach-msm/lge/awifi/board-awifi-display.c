@@ -243,7 +243,7 @@ static struct msm_fb_platform_data msm_fb_pdata = {
 	.update_lcdc_lut = update_preset_lcdc_lut,
 #endif
 };
-};
+
 
 static struct platform_device msm_fb_device = {
 	.name              = "msm_fb",
