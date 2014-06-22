@@ -713,6 +713,7 @@ int mdp_preset_lut_update_lcdc(struct fb_cmap *cmap, uint32_t *internal_lut)
 
 	return 0;
 }
+EXPORT_SYMBOL(mdp_preset_lut_update_lcdc);
 #endif
 
 static void mdp_lut_enable(void)
