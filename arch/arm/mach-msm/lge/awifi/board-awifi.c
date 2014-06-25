@@ -159,6 +159,10 @@
 #define PCIE_PWR_EN_PMIC_GPIO 13
 #define PCIE_RST_N_PMIC_MPP 1
 
+#ifdef CONFIG_CPU_FREQ_GOV_INTELLIDEMAND
+int id_set_two_phase_freq(int cpufreq);
+#endif
+
 #ifdef CONFIG_KERNEL_MSM_CONTIG_MEM_REGION
 static unsigned msm_contig_mem_size = MSM_CONTIG_MEM_SIZE;
 static int __init msm_contig_mem_size_setup(char *p)
@@ -4025,6 +4029,10 @@ static void __init apq8064_common_init(void)
 {
 #if 0 /* sangyup.kim@lge.com To remove mdm modem */
 	u32 platform_version = socinfo_get_platform_version();
+#endif
+
+#ifdef CONFIG_CPU_FREQ_GOV_INTELLIDEMAND
+	id_set_two_phase_freq(1134000);
 #endif
 
 #if !defined (CONFIG_MACH_LGE)
